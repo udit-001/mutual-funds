@@ -1,6 +1,8 @@
 import httpx
 from config import settings
-from sample_data import DATA
+
+from .sample_data import DATA
+
 
 async def fetch_open_ended_schemes(mutual_fund_family: str):
     if settings.use_sample_data == True:
