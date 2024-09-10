@@ -1,21 +1,27 @@
-import React, { useState, useMemo } from 'react'
+import React, { useState, useMemo, useEffect } from 'react'
 import { Button, Input, Tabs, Tab } from "@nextui-org/react";
-import { API_BASE_URL } from '../constants';
+import { API_BASE_URL } from '../constants.js'
 
 export default function FundItem({ item }) {
     const date = new Date(item.date);
     const dateString = date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     const [qty, setQty] = useState(1)
     const [statusMessage, setStatusMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("Please enter a value from 1 to 100")
+    const [isInvalid, setIsInvalid] = useState(false)
     const [color, setColor] = useState("")
 
-    const validateQty = (value) => (value > 0 && value < 100);
+    const validateQty = (value) => (value > 0 && value <= 100);
 
-    const isInvalid = useMemo(() => {
-        if (qty === "") return false;
-
-        return validateQty(qty) ? false : true;
-    }, [qty]);
+    useEffect(() => {
+        if(qty === ""){
+            setIsInvalid(false)
+        }
+        else{
+            setIsInvalid(validateQty(qty)? false: true);
+            setErrorMessage("Please enter a value from 1 to 100")
+        }
+    }, [qty])
 
     const allowPurchase = useMemo(() => {
         if (qty === "") return true;
@@ -46,6 +52,15 @@ export default function FundItem({ item }) {
                 setStatusMessage("");
                 setColor("")
             }, 1000)
+        }
+        else{
+            setErrorMessage("Purchase failed, please try again");
+            setColor("danger")
+            setIsInvalid(true)
+            setTimeout(() => {
+                setColor("")
+                setIsInvalid(false)
+            }, 5000)
         }
 
     }
@@ -85,7 +100,7 @@ export default function FundItem({ item }) {
                             max={100} min={0} name="qty" value={qty} onChange={(e) => {
                                 setQty(e.target.value)
                             }}
-                            errorMessage="Please enter a value from 1 to 100"
+                            errorMessage={errorMessage}
                             isInvalid={isInvalid}
                             description={statusMessage}
                             color={color}
