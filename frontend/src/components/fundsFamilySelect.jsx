@@ -2,7 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import {Select, SelectItem} from "@nextui-org/react";
 import { fundsContext } from "../contexts/fundsContext";
 import Cookies from "js-cookie";
-import { API_BASE_URL } from '../constants';
+import { API_BASE_URL } from '../constants.js';
 
 export default function FundsFamilySelect() {
   const [fundsFamilyList, setFundsFamilyList] = useState([]);

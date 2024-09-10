@@ -3,7 +3,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import { fundsContext } from "../contexts/fundsContext";
 import FundItem from "./fundItem";
 import Cookies from "js-cookie";
-import { API_BASE_URL } from '../contants'
+import { API_BASE_URL } from '../constants.js'
 
 
 export default function FundsList() {
