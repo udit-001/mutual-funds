@@ -1,0 +1,25 @@
+services:
+  backend:
+    container_name: mf_backend
+    build:
+      context: ./backend
+      dockerfile: ./Dockerfile
+    environment:
+      RAPIDAPI_KEY: rapidapikey
+      USERNAME: demo
+      PASSWORD: demo123
+      USE_SAMPLE_DATA: true
+    ports:
+      - "8000:8000"
+    command: uvicorn main:app --host 0.0.0.0
+  frontend:
+    container_name: mf_frontend
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      API_BASE_URL: http://localhost:8000
+    depends_on:
+      - "backend"
