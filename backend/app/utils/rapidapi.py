@@ -11,10 +11,7 @@ async def fetch_open_ended_schemes(mutual_fund_family: str):
 
     url = "https://latest-mutual-fund-nav.p.rapidapi.com/latest"
 
-    querystring = {
-        "Scheme_Type": "Open",
-        "Mutual_Fund_Family": mutual_fund_family
-    }
+    querystring = {"Scheme_Type": "Open", "Mutual_Fund_Family": mutual_fund_family}
 
     headers = {
         "x-rapidapi-key": settings.rapidapi_key,
@@ -24,4 +21,5 @@ async def fetch_open_ended_schemes(mutual_fund_family: str):
     async with httpx.AsyncClient() as client:
         response = await client.get(url, headers=headers, params=querystring)
 
+    response.raise_for_status()
     return response.json()
