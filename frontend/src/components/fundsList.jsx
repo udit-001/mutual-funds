@@ -3,6 +3,7 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import { fundsContext } from "../contexts/fundsContext";
 import FundItem from "./fundItem";
 import Cookies from "js-cookie";
+import { API_BASE_URL } from '../contants'
 
 
 export default function FundsList() {
@@ -13,7 +14,7 @@ export default function FundsList() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/api/get-schemes?mutual_fund_family=${fundsFamily}`, {
+        const response = await fetch(`${API_BASE_URL}/api/get-schemes?mutual_fund_family=${fundsFamily}`, {
           method: 'GET',
            headers: {
              'Authorization': Cookies.get('accessToken'),

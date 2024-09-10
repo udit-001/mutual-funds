@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react'
 import { Button, Input, Tabs, Tab } from "@nextui-org/react";
+import { API_BASE_URL } from '../constants';
 
 export default function FundItem({ item }) {
     const date = new Date(item.date);
@@ -27,7 +28,7 @@ export default function FundItem({ item }) {
         e.preventDefault();
         const schemeCode = e.target.name;
         const qty = e.target.qty.value;
-        const response = await fetch(`http://localhost:8000/api/buy/`, {
+        const response = await fetch(`${API_BASE_URL}/api/buy/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

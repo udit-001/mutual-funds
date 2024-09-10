@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import {Select, SelectItem} from "@nextui-org/react";
 import { fundsContext } from "../contexts/fundsContext";
 import Cookies from "js-cookie";
+import { API_BASE_URL } from '../constants';
 
 export default function FundsFamilySelect() {
   const [fundsFamilyList, setFundsFamilyList] = useState([]);
@@ -9,7 +10,7 @@ export default function FundsFamilySelect() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(`http://localhost:8000/api/mutual-fund-families`, {
+      const response = await fetch(`${API_BASE_URL}/api/mutual-fund-families`, {
         method: 'GET', 
         headers: {
           'Authorization': Cookies.get('accessToken')

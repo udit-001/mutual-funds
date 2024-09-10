@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Input, Button } from '@nextui-org/react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie';
+import { API_BASE_URL } from '../constants';
 
 function LoginPage() {
     const navigate = useNavigate()
@@ -21,7 +22,7 @@ function LoginPage() {
     const formSubmit = async (e) => {
         e.preventDefault()
         setIsLoading(true)
-        const response = await fetch(`http://localhost:8000/api/login/`, {
+        const response = await fetch(`${API_BASE_URL}/api/login/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
