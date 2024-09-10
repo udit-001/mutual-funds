@@ -35,3 +35,23 @@ Once the application is running:
 For testing the app, use the following demo credentials:
 - Username: demo
 - Password: demo123
+
+
+### Notes on Data Persistence
+
+Due to time constraints, the details of stock purchases are currently not stored in any persistent storage and are only logged in the backend server logs. However, if I had to implement persistent storage, here is a proposed schema for storing transaction details, assuming a user table with the following schema:
+
+**User Table:**
+- `user_id`: The internal unique identifier for the user
+- `username`: The user's login name
+- `password`: The user's password (hashed)
+- `name`: The user's full name
+- `phone`: The user's phone number
+- `PAN`: The user's Permanent Account Number for KYC purposes
+
+**Transaction Table:**
+- `user_id`: The ID of the user making the transaction
+- `quantity`: The number of units purchased
+- `scheme_code`: The identifier for the mutual fund scheme selected
+- `created_at`: The date and time when the transaction was created
+- `purchase_nav`: The Net Asset Value (NAV) of the mutual fund at the time of purchase
