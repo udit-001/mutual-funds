@@ -41,7 +41,8 @@ export default function FundItem({ item }) {
             },
             body: JSON.stringify({
                 qty: qty,
-                scheme_code: schemeCode
+                scheme_code: schemeCode,
+                purchase_nav: item.net_asset_value
             }),
         });
         if (response.ok) {
@@ -95,6 +96,9 @@ export default function FundItem({ item }) {
                     </div>
                 </Tab>
                 <Tab key="buy" title="Purchase">
+                    <p className='text-md p-2 font-semibold'>
+                        NAV: {item.net_asset_value}
+                    </p>
                     <form className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 align-middle" onSubmit={buyButton} name={item.scheme_code}>
                         <Input label="Quantity" placeholder="Enter quantity" type="number"
                             max={100} min={0} name="qty" value={qty} onChange={(e) => {

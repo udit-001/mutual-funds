@@ -9,3 +9,4 @@ class LoginRequest(BaseModel):
 class BuyMF(BaseModel):
     qty: int
     scheme_code: str
+    purchase_nav: float

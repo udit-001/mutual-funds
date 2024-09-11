@@ -26,7 +26,9 @@ async def get_mutual_fund_families():
 
 @router.post("/buy/")
 async def buy_mf(item: BuyMF):
-    print(f"Scheme : {item.scheme_code}, Qty: {item.qty} bought successfully.")
+    print(
+        f"Scheme : {item.scheme_code}, Qty: {item.qty} bought at NAV: {item.purchase_nav} successfully."
+    )
     return {
         "message": "Mutual Fund bought successfully",
     }
