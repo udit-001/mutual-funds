@@ -10,15 +10,17 @@ export default function FundItem({ item }) {
     const [errorMessage, setErrorMessage] = useState("Please enter a value from 1 to 100")
     const [isInvalid, setIsInvalid] = useState(false)
     const [color, setColor] = useState("")
+    const [amount, setAmount] = useState(qty * item.net_asset_value)
 
     const validateQty = (value) => (value > 0 && value <= 100);
 
     useEffect(() => {
-        if(qty === ""){
+        if (qty === "") {
             setIsInvalid(false)
         }
-        else{
-            setIsInvalid(validateQty(qty)? false: true);
+        else {
+            setAmount(qty * item.net_asset_value)
+            setIsInvalid(validateQty(qty) ? false : true);
             setErrorMessage("Please enter a value from 1 to 100")
         }
     }, [qty])
@@ -53,11 +55,13 @@ export default function FundItem({ item }) {
                 setStatusMessage("");
                 setColor("")
             }, 1000)
+            setAmount("")
         }
-        else{
+        else {
             setErrorMessage("Purchase failed, please try again");
             setColor("danger")
             setIsInvalid(true)
+            setAmount(qty * item.net_asset_value)
             setTimeout(() => {
                 setColor("")
                 setIsInvalid(false)
@@ -96,9 +100,14 @@ export default function FundItem({ item }) {
                     </div>
                 </Tab>
                 <Tab key="buy" title="Purchase">
-                    <p className='text-md p-2 font-semibold'>
-                        NAV: {item.net_asset_value}
-                    </p>
+                    <div className='flex gap-3 text-md p-2 font-semibold'>
+                        <p>
+                            NAV: {item.net_asset_value}
+                        </p>
+                        <p>
+                            Amount: ₹{amount}
+                        </p>
+                    </div>
                     <form className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4 align-middle" onSubmit={buyButton} name={item.scheme_code}>
                         <Input label="Quantity" placeholder="Enter quantity" type="number"
                             max={100} min={0} name="qty" value={qty} onChange={(e) => {
